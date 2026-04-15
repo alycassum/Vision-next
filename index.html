@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vision Next — Your One-Stop Solution</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ===== RESET & ROOT ===== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --black:   #0a0a0a;
+      --dark:    #111111;
+      --card:    #161616;
+      --border:  #2a2a2a;
+      --gold:    #c9a96e;
+      --gold-lt: #e0c48a;
+      --white:   #f5f0eb;
+      --muted:   #888880;
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body:    'Outfit', sans-serif;
+      --whatsapp: #25D366;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; width: 100%; }
+
+    /* ===== SCROLLBAR ===== */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--black); }
+    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+
+    /* ===== NAV ===== */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5vw;
+      height: 72px;
+      background: rgba(10,10,10,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      transition: all .3s ease;
+    }
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      color: var(--gold);
+    }
+    .nav-links {
+      display: flex; gap: 2.5rem; list-style: none;
+    }
+    .nav-links a {
+      font-size: .8rem;
+      font-weight: 500;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color .25s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute; bottom: -4px; left: 0;
+      width: 0; height: 1px;
+      background: var(--gold);
+      transition: width .3s ease;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-insta {
+      display: flex; align-items: center; gap: .5rem;
+      font-size: .75rem; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--muted); transition: color .25s;
+    }
+    .nav-insta:hover { color: var(--gold); }
+    .nav-insta svg { width: 16px; height: 16px; fill: currentColor; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { display: block; width: 24px; height: 1px; background: var(--white); transition: all .3s; }
+
+    /* ===== HERO ===== */
+    #home {
+      position: relative; height: 100vh; min-height: 600px;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, #1a1510 0%, #0d0d0d 50%, #0a0d12 100%);
+    }
+    .hero-bg::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: 
+        radial-gradient(ellipse 80% 60% at 70% 40%, rgba(201,169,110,.08) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 40% at 20% 70%, rgba(201,169,110,.04) 0%, transparent 50%);
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: url('assets/hero.jpg');
+      background-size: cover; background-position: center;
+      opacity: .35;
+    }
+    /* Grid texture */
+    .hero-grid {
+      position: absolute; inset: 0; z-index: 1;
+      background-image: 
+        linear-gradient(rgba(201,169,110,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,169,110,.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      text-align: center; padding: 0 5vw;
+      animation: fadeUp .9s ease forwards;
+    }
+    .hero-eyebrow {
+      font-size: .7rem; letter-spacing: .3em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1.5rem;
+    }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(3.5rem, 10vw, 8rem);
+      font-weight: 300; line-height: 1;
+      letter-spacing: -.01em;
+      margin-bottom: 1.5rem;
+    }
+    .hero-title em { font-style: italic; color: var(--gold); }
+    .hero-sub {
+      max-width: 520px; margin: 0 auto 3rem;
+      font-size: .95rem; color: rgba(245,240,235,.6); line-height: 1.8;
+    }
+    .hero-cta {
+      display: inline-flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+    }
+    .btn {
+      display: inline-block;
+      padding: .85rem 2.5rem;
+      font-family: var(--font-body);
+      font-size: .78rem; font-weight: 500;
+      letter-spacing: .15em; text-transform: uppercase;
+      transition: all .3s ease; cursor: pointer; border: none;
+    }
+    .btn-gold {
+      background: var(--gold); color: var(--black);
+    }
+    .btn-gold:hover { background: var(--gold-lt); transform: translateY(-2px); }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid rgba(201,169,110,.4); color: var(--gold);
+    }
+    .btn-outline:hover { border-color: var(--gold); background: rgba(201,169,110,.08); transform: translateY(-2px); }
+    .hero-scroll {
+      position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+      z-index: 2; display: flex; flex-direction: column; align-items: center; gap: .5rem;
+      font-size: .65rem; letter-spacing: .2em; text-transform: uppercase; color: var(--muted);
+      animation: pulse 2s ease infinite;
+    }
+    .hero-scroll-line {
+      width: 1px; height: 50px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+    }
+
+    /* ===== SECTION COMMONS ===== */
+    section { padding: 7rem 5vw; }
+    .section-label {
+      font-size: .65rem; letter-spacing: .3em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 300; line-height: 1.15;
+    }
+    .section-title em { font-style: italic; color: var(--gold); }
+    .divider {
+      width: 40px; height: 1px; background: var(--gold); margin: 1.5rem 0;
+    }
+    .section-desc { max-width: 540px; color: var(--muted); font-size: .9rem; line-height: 1.9; }
+
+    /* ===== TURNKEY / FIRMS ===== */
+    #firms { background: var(--dark); }
+    .firms-header { text-align: center; margin-bottom: 5rem; }
+    .firms-header .divider { margin: 1.5rem auto; }
+    .firms-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+    .firm-card {
+      background: var(--card);
+      padding: 3rem 2.5rem;
+      position: relative; overflow: hidden;
+      transition: background .3s;
+      cursor: default;
+    }
+    .firm-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      transform: scaleX(0);
+      transition: transform .4s ease;
+    }
+    .firm-card:hover { background: #1c1c1c; }
+    .firm-card:hover::before { transform: scaleX(1); }
+    .firm-logo-placeholder {
+      width: 80px; height: 40px;
+      background: rgba(201,169,110,.12);
+      border: 1px solid rgba(201,169,110,.2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .55rem; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 2rem;
+    }
+    .firm-name {
+      font-family: var(--font-display);
+      font-size: 1.6rem; font-weight: 400;
+      margin-bottom: 1rem;
+    }
+    .firm-desc { font-size: .85rem; color: var(--muted); line-height: 1.8; margin-bottom: 2rem; }
+    .firm-link {
+      font-size: .7rem; letter-spacing: .15em; text-transform: uppercase;
+      color: var(--gold); display: inline-flex; align-items: center; gap: .5rem;
+      transition: gap .3s;
+    }
+    .firm-link:hover { gap: 1rem; }
+    .firm-link::after { content: '→'; }
+
+    /* ===== PROJECTS ===== */
+    #projects { background: var(--black); }
+    .projects-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 4rem; flex-wrap: wrap; gap: 1rem; }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto;
+      gap: 2px;
+    }
+    .project-item {
+      position: relative; overflow: hidden;
+      background: var(--card);
+      cursor: pointer;
+    }
+    .project-item:first-child { grid-column: span 2; }
+    .project-item:nth-child(4) { grid-column: span 2; }
+    .project-thumb {
+      width: 100%; aspect-ratio: 16/10;
+      background: linear-gradient(135deg, #1a1a1a 0%, #222 100%);
+      position: relative; overflow: hidden;
+    }
+    .project-item:first-child .project-thumb { aspect-ratio: 21/10; }
+    .project-item:nth-child(4) .project-thumb { aspect-ratio: 21/10; }
+    .project-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+    .project-thumb-placeholder {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: .5rem;
+      background: linear-gradient(135deg, #181818 0%, #1e1e1e 100%);
+    }
+    .project-thumb-placeholder span {
+      font-size: .6rem; letter-spacing: .15em; text-transform: uppercase; color: var(--border);
+    }
+    .project-thumb-placeholder svg { width: 28px; height: 28px; fill: var(--border); }
+    .project-item:hover .project-thumb img { transform: scale(1.05); }
+    .project-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,.85) 0%, transparent 50%);
+      display: flex; align-items: flex-end;
+      padding: 1.5rem;
+      opacity: 0; transition: opacity .3s;
+    }
+    .project-item:hover .project-overlay { opacity: 1; }
+    .project-name { font-family: var(--font-display); font-size: 1.1rem; font-weight: 400; }
+    .project-label { font-size: .65rem; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); }
+    .projects-more { text-align: center; margin-top: 3rem; }
+
+    /* ===== ABOUT ===== */
+    #about {
+      background: var(--dark);
+      display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center;
+    }
+    .about-img-stack { position: relative; }
+    .about-img-main {
+      width: 100%; aspect-ratio: 3/4;
+      background: linear-gradient(135deg, #1c1c1c, #242424);
+      position: relative; overflow: hidden;
+    }
+    .about-img-main img { width: 100%; height: 100%; object-fit: cover; }
+    .about-img-accent {
+      position: absolute; bottom: -2rem; right: -2rem;
+      width: 55%; aspect-ratio: 1;
+      background: rgba(201,169,110,.06);
+      border: 1px solid rgba(201,169,110,.2);
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: .25rem;
+    }
+    .about-stat { font-family: var(--font-display); font-size: 3rem; font-weight: 300; color: var(--gold); }
+    .about-stat-label { font-size: .65rem; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+    .about-tags { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 2rem; }
+    .tag {
+      padding: .35rem 1rem;
+      border: 1px solid var(--border);
+      font-size: .7rem; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--muted); transition: all .25s;
+    }
+    .tag:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* ===== HOW WE DESIGN ===== */
+    #process { background: var(--black); }
+    .process-header { text-align: center; margin-bottom: 5rem; }
+    .process-header .divider { margin: 1.5rem auto; }
+    .process-steps {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0;
+      border: 1px solid var(--border);
+    }
+    .process-step {
+      padding: 3rem 2rem;
+      border-right: 1px solid var(--border);
+      position: relative;
+    }
+    .process-step:last-child { border-right: none; }
+    .step-num {
+      font-family: var(--font-display);
+      font-size: 4rem; font-weight: 300;
+      color: rgba(201,169,110,.15);
+      line-height: 1; margin-bottom: 1.5rem;
+    }
+    .step-title {
+      font-size: .85rem; font-weight: 500; letter-spacing: .05em;
+      margin-bottom: .75rem;
+    }
+    .step-desc { font-size: .82rem; color: var(--muted); line-height: 1.8; }
+
+    /* ===== WOODHOUSE ===== */
+    #woodhouse { background: var(--dark); }
+    .woodhouse-header { display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 2rem; margin-bottom: 4rem; }
+    .woodhouse-header-text .section-desc { margin-top: 1rem; }
+    .wh-order-btn {
+      display: inline-flex; align-items: center; gap: .75rem;
+      padding: .9rem 2rem;
+      background: var(--whatsapp);
+      color: white;
+      font-family: var(--font-body);
+      font-size: .78rem; font-weight: 500; letter-spacing: .12em; text-transform: uppercase;
+      transition: all .3s; white-space: nowrap;
+    }
+    .wh-order-btn:hover { background: #1ebe5d; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,211,102,.25); }
+    .wh-order-btn svg { width: 18px; height: 18px; fill: white; flex-shrink: 0; }
+    .woodhouse-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5px; background: var(--border);
+    }
+    .wh-item {
+      background: var(--card); position: relative; overflow: hidden; cursor: pointer;
+    }
+    .wh-thumb {
+      aspect-ratio: 4/3;
+      background: linear-gradient(135deg, #1a1a1a, #222);
+      position: relative; overflow: hidden;
+    }
+    .wh-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+    .wh-item:hover .wh-thumb img { transform: scale(1.06); }
+    .wh-info { padding: 1.5rem; }
+    .wh-name { font-family: var(--font-display); font-size: 1.2rem; margin-bottom: .4rem; }
+    .wh-cat { font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); }
+    .wh-action {
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,.7);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transition: opacity .3s;
+    }
+    .wh-item:hover .wh-action { opacity: 1; }
+    .wh-action a {
+      display: inline-flex; align-items: center; gap: .6rem;
+      padding: .75rem 1.75rem;
+      background: var(--whatsapp);
+      color: white;
+      font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; font-weight: 500;
+      transition: background .25s;
+    }
+    .wh-action a svg { width: 16px; height: 16px; fill: white; }
+    .wh-action a:hover { background: #1ebe5d; }
+
+    /* ===== BLOG / HIGHLIGHTS ===== */
+    #highlights { background: var(--black); }
+    .highlights-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 4rem; flex-wrap: wrap; gap: 1rem; }
+    .highlights-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2px; background: var(--border); }
+    .highlight-card { background: var(--card); overflow: hidden; }
+    .highlight-thumb {
+      aspect-ratio: 16/10;
+      background: linear-gradient(135deg, #1a1a1a, #222);
+      overflow: hidden;
+    }
+    .highlight-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
+    .highlight-card:hover .highlight-thumb img { transform: scale(1.04); }
+    .highlight-body { padding: 2rem; }
+    .highlight-date { font-size: .65rem; letter-spacing: .15em; text-transform: uppercase; color: var(--muted); margin-bottom: .75rem; }
+    .highlight-title { font-family: var(--font-display); font-size: 1.3rem; font-weight: 400; margin-bottom: 1rem; line-height: 1.3; }
+    .highlight-excerpt { font-size: .83rem; color: var(--muted); line-height: 1.8; }
+    .highlight-more { display: inline-block; margin-top: 1.25rem; font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); }
+    .highlight-more::after { content: ' →'; }
+
+    /* ===== REAL ESTATE ===== */
+    #realestate {
+      background: var(--dark);
+      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
+    }
+    .realestate-img {
+      aspect-ratio: 4/3;
+      background: linear-gradient(135deg, #1c1c1c, #242424);
+      position: relative; overflow: hidden;
+    }
+    .realestate-img img { width: 100%; height: 100%; object-fit: cover; }
+    .realestate-img::after {
+      content: '';
+      position: absolute; inset: 0;
+      border: 1px solid rgba(201,169,110,.15);
+      pointer-events: none;
+    }
+    .realestate-features { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1.25rem; }
+    .re-feature {
+      display: flex; gap: 1.25rem; align-items: flex-start;
+      padding: 1.25rem;
+      border: 1px solid var(--border);
+      transition: border-color .3s;
+    }
+    .re-feature:hover { border-color: rgba(201,169,110,.3); }
+    .re-icon {
+      width: 36px; height: 36px; flex-shrink: 0;
+      background: rgba(201,169,110,.08);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .re-icon svg { width: 16px; height: 16px; stroke: var(--gold); fill: none; stroke-width: 1.5; }
+    .re-feat-title { font-size: .85rem; font-weight: 500; margin-bottom: .3rem; }
+    .re-feat-desc { font-size: .8rem; color: var(--muted); line-height: 1.7; }
+
+    /* ===== CIVIL WORK ===== */
+    #civilwork { background: var(--black); }
+    .civil-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    .civil-img {
+      aspect-ratio: 4/3;
+      background: linear-gradient(135deg, #1c1c1c, #242424);
+      overflow: hidden; order: 2;
+    }
+    .civil-img img { width: 100%; height: 100%; object-fit: cover; }
+    .civil-text { order: 1; }
+    .civil-list { margin-top: 2rem; display: flex; flex-direction: column; gap: .75rem; }
+    .civil-list li {
+      display: flex; align-items: center; gap: 1rem;
+      font-size: .87rem; color: var(--muted);
+      padding: .75rem 0; border-bottom: 1px solid var(--border);
+    }
+    .civil-list li::before { content: '—'; color: var(--gold); }
+
+    /* ===== CONTACT ===== */
+    #contact { background: var(--dark); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; }
+    .contact-info { display: flex; flex-direction: column; gap: 2rem; }
+    .contact-item { display: flex; gap: 1.25rem; align-items: flex-start; }
+    .contact-icon {
+      width: 40px; height: 40px; flex-shrink: 0;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .contact-icon svg { width: 16px; height: 16px; stroke: var(--gold); fill: none; stroke-width: 1.5; }
+    .contact-label { font-size: .65rem; letter-spacing: .15em; text-transform: uppercase; color: var(--gold); margin-bottom: .3rem; }
+    .contact-val { font-size: .9rem; color: var(--white); }
+    .contact-form { display: flex; flex-direction: column; gap: 1.25rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+    .form-group { display: flex; flex-direction: column; gap: .5rem; }
+    .form-group label { font-size: .65rem; letter-spacing: .15em; text-transform: uppercase; color: var(--muted); }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--white);
+      padding: .85rem 1rem;
+      font-family: var(--font-body); font-size: .87rem; font-weight: 300;
+      outline: none; resize: none;
+      transition: border-color .25s;
+      appearance: none;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus { border-color: var(--gold); }
+    .form-group textarea { min-height: 120px; }
+    .form-group select option { background: var(--card); }
+    .form-success {
+      display: none; padding: 1rem;
+      border: 1px solid var(--whatsapp); color: var(--whatsapp);
+      font-size: .82rem; text-align: center;
+    }
+    .whatsapp-alt {
+      margin-top: 1.5rem; padding: 1.25rem;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; gap: 1rem;
+      font-size: .82rem; color: var(--muted);
+    }
+    .whatsapp-alt a { color: var(--whatsapp); font-weight: 500; }
+    .whatsapp-alt a:hover { text-decoration: underline; }
+    .wa-icon { width: 32px; height: 32px; background: var(--whatsapp); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .wa-icon svg { width: 16px; height: 16px; fill: white; }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--black);
+      border-top: 1px solid var(--border);
+      padding: 4rem 5vw 2rem;
+    }
+    .footer-top {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem;
+      padding-bottom: 3rem; border-bottom: 1px solid var(--border);
+    }
+    .footer-brand .nav-logo { margin-bottom: 1rem; display: block; }
+    .footer-brand p { font-size: .82rem; color: var(--muted); line-height: 1.9; max-width: 260px; }
+    .footer-col h4 { font-size: .65rem; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: .75rem; }
+    .footer-col ul li a { font-size: .82rem; color: var(--muted); transition: color .25s; }
+    .footer-col ul li a:hover { color: var(--white); }
+    .footer-bottom {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-top: 2rem; flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-copy { font-size: .75rem; color: var(--muted); }
+    .footer-socials { display: flex; gap: 1rem; }
+    .footer-socials a {
+      width: 36px; height: 36px; border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color .25s;
+    }
+    .footer-socials a:hover { border-color: var(--gold); }
+    .footer-socials svg { width: 14px; height: 14px; fill: var(--muted); transition: fill .25s; }
+    .footer-socials a:hover svg { fill: var(--gold); }
+
+    /* ===== PLACEHOLDER IMG ===== */
+    .ph-img {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: .5rem;
+      background: linear-gradient(135deg, #181818 0%, #1f1f1f 100%);
+    }
+    .ph-img svg { width: 32px; height: 32px; stroke: #333; fill: none; stroke-width: 1; }
+    .ph-img span { font-size: .6rem; letter-spacing: .15em; text-transform: uppercase; color: #333; }
+
+    /* ===== ANIMATIONS ===== */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: .4; } 50% { opacity: 1; }
+    }
+    .reveal {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ===== MOBILE NAV ===== */
+    .mobile-menu {
+      display: none;
+      position: fixed; inset: 0; z-index: 99;
+      background: var(--black);
+      flex-direction: column; align-items: center; justify-content: center;
+      gap: 2.5rem;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-family: var(--font-display);
+      font-size: 2rem; font-weight: 300; color: var(--white);
+      transition: color .25s;
+    }
+    .mobile-menu a:hover { color: var(--gold); }
+    .mobile-close {
+      position: absolute; top: 1.5rem; right: 5vw;
+      font-size: 1.5rem; cursor: pointer; color: var(--muted);
+      background: none; border: none; font-family: var(--font-body);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      #about, #realestate, .civil-grid, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .civil-img { order: -1; }
+      .projects-grid { grid-template-columns: 1fr 1fr; }
+      .project-item:first-child, .project-item:nth-child(4) { grid-column: span 2; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 680px) {
+      .nav-links, .nav-insta { display: none; }
+      .hamburger { display: flex; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .project-item:first-child, .project-item:nth-child(4) { grid-column: span 1; }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; }
+      .about-img-accent { right: 0; bottom: -1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<nav id="navbar">
+  <a href="#home" class="nav-logo">Vision Next</a>
+  <ul class="nav-links">
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#realestate">Real Estate</a></li>
+    <li><a href="#woodhouse">Furniture</a></li>
+    <li><a href="#civilwork">Civil Work</a></li>
+    <li><a href="#contact">Contact Us</a></li>
+  </ul>
+  <a href="https://www.instagram.com/globalspace.realestate/" target="_blank" class="nav-insta">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+    Instagram
+  </a>
+  <div class="hamburger" onclick="openMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" onclick="closeMenu()">✕</button>
+  <a href="#projects" onclick="closeMenu()">Projects</a>
+  <a href="#realestate" onclick="closeMenu()">Real Estate</a>
+  <a href="#woodhouse" onclick="closeMenu()">Furniture</a>
+  <a href="#civilwork" onclick="closeMenu()">Civil Work</a>
+  <a href="#contact" onclick="closeMenu()">Contact Us</a>
+</div>
+
+<!-- ===== HERO ===== -->
+<section id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Karachi, Pakistan — Est. 1980</p>
+    <h1 class="hero-title">Vision<br><em>Next</em></h1>
+    <p class="hero-sub">Your one-stop solution for all housing needs. From real estate to design, execution and custom furniture — we turn your dream into reality.</p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn btn-gold">View Our Work</a>
+      <a href="#contact" class="btn btn-outline">Get In Touch</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="hero-scroll-line"></div>
+    Scroll
+  </div>
+</section>
+
+<!-- ===== TURN-KEY FIRMS ===== -->
+<section id="firms">
+  <div class="firms-header reveal">
+    <p class="section-label">Our Ecosystem</p>
+    <h2 class="section-title">A Complete <em>Turn-Key</em><br>Solution Under One Roof</h2>
+    <div class="divider"></div>
+    <p class="section-desc">Four specialised firms. One seamless vision. From the plot to the last piece of furniture — we handle everything.</p>
+  </div>
+  <div class="firms-grid reveal">
+
+    <div class="firm-card">
+      <div class="firm-logo-placeholder">GS Logo</div>
+      <h3 class="firm-name">Global Space</h3>
+      <p class="firm-desc">We simplify real estate by helping you buy houses or plots with complete guidance, transparency, and a hassle-free experience.</p>
+      <a href="#realestate" class="firm-link">Learn More</a>
+    </div>
+
+    <div class="firm-card">
+      <div class="firm-logo-placeholder">VN Logo</div>
+      <h3 class="firm-name">Vision Next</h3>
+      <p class="firm-desc">We design your dream home with tailored layouts and 3D mockups, customising both interiors and exteriors to match your style.</p>
+      <a href="#projects" class="firm-link">Learn More</a>
+    </div>
+
+    <div class="firm-card">
+      <div class="firm-logo-placeholder">SL Logo</div>
+      <h3 class="firm-name">Scan Line</h3>
+      <p class="firm-desc">We manage complete civil work execution based on approved designs and 3D models, ensuring everything stays on schedule.</p>
+      <a href="#civilwork" class="firm-link">Learn More</a>
+    </div>
+
+    <div class="firm-card">
+      <div class="firm-logo-placeholder">WH Logo</div>
+      <h3 class="firm-name">Wood House</h3>
+      <p class="firm-desc">We craft elegant, handcrafted furniture that blends comfort and style, adding the perfect finishing touch to your home.</p>
+      <a href="#woodhouse" class="firm-link">Learn More</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== PROJECTS ===== -->
+<section id="projects">
+  <div class="projects-header reveal">
+    <div>
+      <p class="section-label">Our Portfolio</p>
+      <h2 class="section-title">Featured <em>Projects</em></h2>
+    </div>
+    <p style="font-size:.82rem; color:var(--muted); max-width:340px; line-height:1.9;">45+ years of excellence. Corporate clients. Award-winning spaces across Karachi and beyond.</p>
+  </div>
+  <div class="projects-grid reveal">
+    <div class="project-item">
+      <div class="project-thumb">
+        <div class="ph-img">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 21V9"/></svg>
+          <span>Project Image</span>
+        </div>
+      </div>
+      <div class="project-overlay">
+        <div><div class="project-label">Hospitality</div><div class="project-name">Serena Hotel, Hunza</div></div>
+      </div>
+    </div>
+    <div class="project-item">
+      <div class="project-thumb">
+        <div class="ph-img">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 21V9"/></svg>
+          <span>Project Image</span>
+        </div>
+      </div>
+      <div class="project-overlay">
+        <div><div class="project-label">F&B</div><div class="project-name">Sakura Restaurant, PC</div></div>
+      </div>
+    </div>
+    <div class="project-item">
+      <div class="project-thumb">
+        <div class="ph-img">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 21V9"/></svg>
+          <span>Project Image</span>
+        </div>
+      </div>
+      <div class="project-overlay">
+        <div><div class="project-label">Corporate</div><div class="project-name">HBL Digital Banking Office</div></div>
+      </div>
+    </div>
+    <div class="project-item">
+      <div class="project-thumb">
+        <div class="ph-img">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 21V9"/></svg>
+          <span>Project Image</span>
+        </div>
+      </div>
+      <div class="project-overlay">
+        <div><div class="project-label">Corporate</div><div class="project-name">Group M Office</div></div>
+      </div>
+    </div>
+    <div class="project-item">
+      <div class="project-thumb">
+        <div class="ph-img">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 21V9"/></svg>
+          <span>Project Image</span>
+        </div>
+      </div>
+      <div class="project-overlay">
+        <div><div class="project-label">Retail</div><div class="project-name">Wella Academy Saloon</div></div>
+      </div>
+    </div>
+    <div class="project-item">
+      <div class="project-thumb">
+        <div class="ph-img">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 21V9"/></svg>
+          <span>Project Image</span>
+        </div>
+      </div>
+      <div class="project-overlay">
+        <div><div class="project-label">Corporate</div><div class="project-name">SM Jaffer Office</div></div>
+      </div>
+    </div>
+    <div class="project-item">
+      <div class="project-thumb">
+        <div class="ph-img">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 21V9"/></svg>
+          <span>Project Image</span>
+        </div>
+      </div>
+      <div class="project-overlay">
+        <div><div class="project-label">Commercial</div><div class="project-name">Eastern Garments Office</div></div>
+      </div>
+    </div>
+    <div class="project-item">
+      <div class="project-thumb">
+        <div class="ph-img">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 21V9"/></svg>
+          <span>Project Image</span>
+        </div>
+      </div>
+      <div class="project-overlay">
+        <div><div class="project-label">Studio</div><div class="project-name">Dossani Studio</div></div>
+      </div>
+    </div>
+    <div class="project-item">
+      <div class="project-thumb">
+        <div class="ph-img">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 21V9"/></svg>
+          <span>Project Image</span>
+        </div>
+      </div>
+      <div class="project-overlay">
+        <div><div class="project-label">Commercial</div><div class="project-name">ABS Engineering Office</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="projects-more reveal">
+    <a href="#contact" class="btn btn-outline">Enquire About a Project</a>
+  </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section id="about">
+  <div class="about-img-stack reveal">
+    <div class="about-img-main">
+      <div class="ph-img">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <span>About Image</span>
+      </div>
+    </div>
+    <div class="about-img-accent">
+      <span class="about-stat">45+</span>
+      <span class="about-stat-label">Years of Excellence</span>
+    </div>
+  </div>
+  <div class="about-text reveal">
+    <p class="section-label">About Us</p>
+    <h2 class="section-title">One Vision.<br><em>Four Firms.</em><br>Zero Compromise.</h2>
+    <div class="divider"></div>
+    <p class="section-desc">With 45+ years of expertise, Vision Next unites Real Estate, Interior & Exterior Design, Civil Work and Furniture under one vision. As the parent of Global Space, Scan Line and Wood House, we deliver a one-window solution to cater to all your needs.</p>
+    <p class="section-desc" style="margin-top:1rem;">Your home is a meaningful investment. Experience the comfort of a true one-stop solution, where convenience and reliability come standard.</p>
+    <div class="about-tags">
+      <span class="tag">Architecture</span>
+      <span class="tag">Interior Design</span>
+      <span class="tag">Real Estate</span>
+      <span class="tag">Civil Execution</span>
+      <span class="tag">Custom Furniture</span>
+      <span class="tag">3D Visualisation</span>
+    </div>
+    <a href="#contact" class="btn btn-gold" style="margin-top:2.5rem; display:inline-block;">Work With Us</a>
+  </div>
+</section>
+
+<!-- ===== HOW WE DESIGN ===== -->
+<section id="process">
+  <div class="process-header reveal">
+    <p class="section-label">Our Approach</p>
+    <h2 class="section-title">How We <em>Design</em></h2>
+    <div class="divider"></div>
+    <p class="section-desc" style="margin: 0 auto; text-align: center;">At Vision Next, we design your home from the ground up. Every detail is tailored to your preferences and lifestyle.</p>
+  </div>
+  <div class="process-steps reveal">
+    <div class="process-step">
+      <div class="step-num">01</div>
+      <h3 class="step-title">Discovery</h3>
+      <p class="step-desc">We begin with a deep consultation to understand your lifestyle, preferences, and vision for the space.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-num">02</div>
+      <h3 class="step-title">Concept Design</h3>
+      <p class="step-desc">Our team creates tailored layouts and design concepts — both interior and exterior — matched to your style.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-num">03</div>
+      <h3 class="step-title">3D Mockup</h3>
+      <p class="step-desc">High-quality 3D rendered mockups let you visualise the complete space before a single wall is built.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-num">04</div>
+      <h3 class="step-title">Execution</h3>
+      <p class="step-desc">Scan Line manages every aspect of civil execution on-schedule, on-budget, and to specification.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-num">05</div>
+      <h3 class="step-title">Finishing</h3>
+      <p class="step-desc">Wood House delivers handcrafted furniture and finishes that complete your space with elegance.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WOODHOUSE ===== -->
+<section id="woodhouse">
+  <div class="woodhouse-header reveal">
+    <div class="woodhouse-header-text">
+      <p class="section-label">Wood House</p>
+      <h2 class="section-title">Handcrafted <em>Furniture</em></h2>
+      <div class="divider"></div>
+      <p class="section-desc">Elegant pieces that blend comfort and style, adding the perfect finishing touch to your home. Custom orders welcome.</p>
+    </div>
+    <!-- REPLACE +923001234567 with your actual WhatsApp number -->
+    <a href="https://wa.me/923001234567?text=Hello%2C%20I%27m%20interested%20in%20ordering%20furniture%20from%20Wood%20House.%20Could%20you%20please%20share%20more%20details%3F" target="_blank" class="wh-order-btn">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Order via WhatsApp
+    </a>
+  </div>
+  <div class="woodhouse-grid reveal">
+
+    <!-- REPLACE src="" with your actual furniture images, e.g. src="assets/furniture/sofa.jpg" -->
+    <div class="wh-item">
+      <div class="wh-thumb"><div class="ph-img"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1"><path d="M20 10V7a2 2 0 00-2-2H6a2 2 0 00-2 2v3"/><path d="M4 10h16a1 1 0 011 1v2H3v-2a1 1 0 011-1z"/><path d="M5 13v4M19 13v4M3 17h18"/></svg><span>Furniture Image</span></div></div>
+      <div class="wh-info"><div class="wh-name">Luxury Sofa Set</div><div class="wh-cat">Living Room</div></div>
+      <div class="wh-action"><a href="https://wa.me/923001234567?text=Hi%2C%20I%27m%20interested%20in%20the%20Luxury%20Sofa%20Set.%20Could%20you%20share%20pricing%20and%20availability%3F" target="_blank"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Enquire on WhatsApp</a></div>
+    </div>
+
+    <div class="wh-item">
+      <div class="wh-thumb"><div class="ph-img"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1"><rect x="2" y="7" width="20" height="13" rx="1"/><path d="M16 7V5a2 2 0 00-4 0v2M8 7V5a2 2 0 00-4 0"/></svg><span>Furniture Image</span></div></div>
+      <div class="wh-info"><div class="wh-name">Executive Desk</div><div class="wh-cat">Office</div></div>
+      <div class="wh-action"><a href="https://wa.me/923001234567?text=Hi%2C%20I%27m%20interested%20in%20the%20Executive%20Desk.%20Could%20you%20share%20pricing%20and%20availability%3F" target="_blank"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Enquire on WhatsApp</a></div>
+    </div>
+
+    <div class="wh-item">
+      <div class="wh-thumb"><div class="ph-img"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1"><path d="M3 7h18M3 12h18M3 17h18"/></svg><span>Furniture Image</span></div></div>
+      <div class="wh-info"><div class="wh-name">Dining Table Set</div><div class="wh-cat">Dining Room</div></div>
+      <div class="wh-action"><a href="https://wa.me/923001234567?text=Hi%2C%20I%27m%20interested%20in%20the%20Dining%20Table%20Set.%20Could%20you%20share%20pricing%20and%20availability%3F" target="_blank"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Enquire on WhatsApp</a></div>
+    </div>
+
+    <div class="wh-item">
+      <div class="wh-thumb"><div class="ph-img"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1"><path d="M2 3h20v14H2zM8 21h8M12 17v4"/></svg><span>Furniture Image</span></div></div>
+      <div class="wh-info"><div class="wh-name">Custom Wardrobe</div><div class="wh-cat">Bedroom</div></div>
+      <div class="wh-action"><a href="https://wa.me/923001234567?text=Hi%2C%20I%27m%20interested%20in%20a%20Custom%20Wardrobe.%20Could%20you%20share%20pricing%20and%20availability%3F" target="_blank"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Enquire on WhatsApp</a></div>
+    </div>
+
+    <div class="wh-item">
+      <div class="wh-thumb"><div class="ph-img"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1"><rect x="4" y="4" width="16" height="12" rx="1"/><path d="M2 20h20M6 16v4M18 16v4"/></svg><span>Furniture Image</span></div></div>
+      <div class="wh-info"><div class="wh-name">Bed Frame & Headboard</div><div class="wh-cat">Bedroom</div></div>
+      <div class="wh-action"><a href="https://wa.me/923001234567?text=Hi%2C%20I%27m%20interested%20in%20a%20Bed%20Frame%20%26%20Headboard.%20Could%20you%20share%20pricing%20and%20availability%3F" target="_blank"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Enquire on WhatsApp</a></div>
+    </div>
+
+    <div class="wh-item">
+      <div class="wh-thumb"><div class="ph-img"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1"><path d="M4 6h16M4 12h16M4 18h7"/></svg><span>Furniture Image</span></div></div>
+      <div class="wh-info"><div class="wh-name">TV Console Unit</div><div class="wh-cat">Living Room</div></div>
+      <div class="wh-action"><a href="https://wa.me/923001234567?text=Hi%2C%20I%27m%20interested%20in%20a%20TV%20Console%20Unit.%20Could%20you%20share%20pricing%20and%20availability%3F" target="_blank"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Enquire on WhatsApp</a></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== REAL ESTATE ===== -->
+<section id="realestate">
+  <div class="realestate-img reveal">
+    <div class="ph-img">
+      <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><path d="M9 22V12h6v10"/></svg>
+      <span>Real Estate Image</span>
+    </div>
+  </div>
+  <div class="reveal">
+    <p class="section-label">Global Space</p>
+    <h2 class="section-title">Real Estate<br><em>Simplified</em></h2>
+    <div class="divider"></div>
+    <p class="section-desc">We simplify real estate by helping you buy houses or plots with complete guidance, transparency, and a hassle-free experience across residential and commercial properties.</p>
+    <div class="realestate-features">
+      <div class="re-feature">
+        <div class="re-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg></div>
+        <div><div class="re-feat-title">Residential Properties</div><div class="re-feat-desc">Houses, apartments and plots in prime locations across Karachi.</div></div>
+      </div>
+      <div class="re-feature">
+        <div class="re-icon"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg></div>
+        <div><div class="re-feat-title">Commercial Spaces</div><div class="re-feat-desc">Office spaces, retail units, and commercial plots for businesses.</div></div>
+      </div>
+      <div class="re-feature">
+        <div class="re-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
+        <div><div class="re-feat-title">End-to-End Guidance</div><div class="re-feat-desc">Legal, financial and transactional support at every step of your journey.</div></div>
+      </div>
+    </div>
+    <a href="#contact" class="btn btn-gold" style="margin-top:2.5rem; display:inline-block;">Enquire About a Property</a>
+  </div>
+</section>
+
+<!-- ===== CIVIL WORK ===== -->
+<section id="civilwork">
+  <div class="civil-grid">
+    <div class="civil-text reveal">
+      <p class="section-label">Scan Line</p>
+      <h2 class="section-title">Civil Work &<br><em>Execution</em></h2>
+      <div class="divider"></div>
+      <p class="section-desc">We manage complete civil work execution based on approved designs and 3D models, ensuring everything stays on schedule and to specification.</p>
+      <ul class="civil-list">
+        <li>Architectural Construction</li>
+        <li>Interior Fit-Out</li>
+        <li>MEP Works</li>
+        <li>Project Management</li>
+        <li>Quality Control & Inspection</li>
+        <li>Commercial & Residential Build</li>
+      </ul>
+      <a href="#contact" class="btn btn-outline" style="margin-top:2.5rem; display:inline-block;">Discuss Your Project</a>
+    </div>
+    <div class="civil-img reveal">
+      <div class="ph-img">
+        <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+        <span>Civil Work Image</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROJECT HIGHLIGHTS ===== -->
+<section id="highlights">
+  <div class="highlights-header reveal">
+    <div>
+      <p class="section-label">Project Highlights</p>
+      <h2 class="section-title">Behind the <em>Design</em></h2>
+    </div>
+    <a href="#contact" class="btn btn-outline">View All</a>
+  </div>
+  <div class="highlights-grid reveal">
+    <div class="highlight-card">
+      <div class="highlight-thumb"><div class="ph-img"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><span>Project Image</span></div></div>
+      <div class="highlight-body">
+        <div class="highlight-date">August 28, 2025</div>
+        <h3 class="highlight-title">Living Room 3D Mockup — Vision Next Designing</h3>
+        <p class="highlight-excerpt">For one of our clients, we designed a unique, premium living room concept. After approval, we crafted a 3D mockup allowing them to visualise the complete look and feel...</p>
+        <span class="highlight-more">Read More</span>
+      </div>
+    </div>
+    <div class="highlight-card">
+      <div class="highlight-thumb"><div class="ph-img"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><span>Project Image</span></div></div>
+      <div class="highlight-body">
+        <div class="highlight-date">August 28, 2025</div>
+        <h3 class="highlight-title">3D Bathroom Mockup — Vision Next Designing</h3>
+        <p class="highlight-excerpt">For one of our valued clients, we suggested a unique premium bathroom design. Upon approval, we brought it to life with a detailed 3D mockup, giving them a clear vision...</p>
+        <span class="highlight-more">Read More</span>
+      </div>
+    </div>
+    <div class="highlight-card">
+      <div class="highlight-thumb"><div class="ph-img"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><span>Project Image</span></div></div>
+      <div class="highlight-body">
+        <div class="highlight-date">August 26, 2025</div>
+        <h3 class="highlight-title">Full Basement Lounge Mockup by Vision Next</h3>
+        <p class="highlight-excerpt">At Vision Next, we design and build your dream home exactly the way you envision it. With your style, ideas, and input at the centre, we transform imagination into reality...</p>
+        <span class="highlight-more">Read More</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section id="contact">
+  <div class="contact-grid">
+    <div class="reveal">
+      <p class="section-label">Get In Touch</p>
+      <h2 class="section-title">Let's Build<br><em>Together</em></h2>
+      <div class="divider"></div>
+      <p class="section-desc">Ready to bring your vision to life? Reach out and our team will connect with you within 24 hours.</p>
+      <div class="contact-info" style="margin-top:2.5rem;">
+        <div class="contact-item">
+          <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><div class="contact-label">Location</div><div class="contact-val">Karachi, Pakistan</div></div>
+        </div>
+        <div class="contact-item">
+          <!-- REPLACE with actual phone -->
+          <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.63A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z"/></svg></div>
+          <div><div class="contact-label">Phone / WhatsApp</div><div class="contact-val">+92 300 000 0000</div></div>
+        </div>
+        <div class="contact-item">
+          <!-- REPLACE with actual email -->
+          <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg></div>
+          <div><div class="contact-label">Email</div><div class="contact-val">hello@visionnext.co</div></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div>
+          <div><div class="contact-label">Instagram</div><div class="contact-val"><a href="https://www.instagram.com/globalspace.realestate/" target="_blank" style="color:var(--gold)">@globalspace.realestate</a></div></div>
+        </div>
+      </div>
+      <!-- WhatsApp direct link -->
+      <div class="whatsapp-alt">
+        <div class="wa-icon"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></div>
+        Prefer WhatsApp? <a href="https://wa.me/923001234567?text=Hello%2C%20I%27d%20like%20to%20discuss%20a%20project%20with%20Vision%20Next." target="_blank">Message us directly →</a>
+      </div>
+    </div>
+
+    <!-- Contact Form (uses Formspree — replace ACTION URL) -->
+    <div class="reveal">
+      <!-- Sign up free at formspree.io and replace the action URL below -->
+      <form class="contact-form" id="contactForm" action="https://formspree.io/f/REPLACE_THIS" method="POST">
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" name="firstName" placeholder="Ahmed" required />
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" name="lastName" placeholder="Khan" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" name="email" placeholder="ahmed@example.com" required />
+        </div>
+        <div class="form-group">
+          <label>Phone / WhatsApp</label>
+          <input type="tel" name="phone" placeholder="+92 300 000 0000" />
+        </div>
+        <div class="form-group">
+          <label>Service of Interest</label>
+          <select name="service">
+            <option value="">Select a service...</option>
+            <option>Real Estate (Global Space)</option>
+            <option>Design & Architecture (Vision Next)</option>
+            <option>Civil Execution (Scan Line)</option>
+            <option>Furniture (Wood House)</option>
+            <option>Full Turn-Key Solution</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Your Message</label>
+          <textarea name="message" placeholder="Tell us about your project or enquiry..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-gold" style="width:100%; cursor:pointer;">Send Enquiry</button>
+        <div class="form-success" id="formSuccess">✓ Message sent! We'll be in touch within 24 hours.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <span class="nav-logo">Vision Next</span>
+      <p>Your one-stop solution for real estate, design, civil execution and custom furniture. Turning visions into reality since 1980.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Companies</h4>
+      <ul>
+        <li><a href="#firms">Global Space</a></li>
+        <li><a href="#firms">Vision Next</a></li>
+        <li><a href="#civilwork">Scan Line</a></li>
+        <li><a href="#woodhouse">Wood House</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#realestate">Real Estate</a></li>
+        <li><a href="#projects">Interior Design</a></li>
+        <li><a href="#civilwork">Civil Work</a></li>
+        <li><a href="#woodhouse">Furniture</a></li>
+        <li><a href="#process">3D Visualisation</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="#contact">Get In Touch</a></li>
+        <li><a href="https://www.instagram.com/globalspace.realestate/" target="_blank">Instagram</a></li>
+        <li><a href="https://wa.me/923001234567" target="_blank">WhatsApp</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2025 Vision Next. All rights reserved.</span>
+    <div class="footer-socials">
+      <a href="https://www.instagram.com/globalspace.realestate/" target="_blank" title="Instagram">
+        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </a>
+      <a href="https://wa.me/923001234567" target="_blank" title="WhatsApp">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Mobile menu
+  function openMenu() { document.getElementById('mobileMenu').classList.add('open'); document.body.style.overflow='hidden'; }
+  function closeMenu() { document.getElementById('mobileMenu').classList.remove('open'); document.body.style.overflow=''; }
+
+  // Contact form (Formspree AJAX)
+  const form = document.getElementById('contactForm');
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = form.querySelector('button[type=submit]');
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+    try {
+      const res = await fetch(form.action, { method:'POST', body: new FormData(form), headers:{ 'Accept':'application/json' } });
+      if (res.ok) {
+        form.reset();
+        document.getElementById('formSuccess').style.display = 'block';
+        btn.textContent = 'Sent ✓';
+      } else { btn.textContent = 'Error — try again'; btn.disabled = false; }
+    } catch { btn.textContent = 'Error — try again'; btn.disabled = false; }
+  });
+
+  // Sticky nav shadow on scroll
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').style.boxShadow = window.scrollY > 50 ? '0 4px 30px rgba(0,0,0,.5)' : 'none';
+  });
+</script>
+</body>
+</html>
