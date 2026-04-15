@@ -95,16 +95,17 @@
       display: flex; align-items: center; justify-content: center;
       overflow: hidden;
     }
-    .hero-bg {
-      position: absolute; inset: 0;
-      background: linear-gradient(135deg, #1a1510 0%, #0d0d0d 50%, #0a0d12 100%);
-    }
-    .hero-bg::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: 
-        radial-gradient(ellipse 80% 60% at 70% 40%, rgba(201,169,110,.08) 0%, transparent 60%),
-        radial-gradient(ellipse 40% 40% at 20% 70%, rgba(201,169,110,.04) 0%, transparent 50%);
+.hero-bg {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, #1a1510 0%, #0d0d0d 50%, #0a0d12 100%);
+}
+.hero-bg::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: 
+    radial-gradient(ellipse 80% 60% at 70% 40%, rgba(201,169,110,.08) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 40% at 20% 70%, rgba(201,169,110,.04) 0%, transparent 50%);
+}
     }
     .hero-bg::after {
       content: '';
