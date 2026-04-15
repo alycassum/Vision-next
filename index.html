@@ -595,24 +595,65 @@
     }
 
    /* ===== RESPONSIVE ===== */
-    @media (max-width: 900px) {
-      #about, #realestate, .civil-grid, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
-      .civil-img { order: -1; }
-      .projects-grid { grid-template-columns: 1fr 1fr; }
-      .project-item:first-child, .project-item:nth-child(4) { grid-column: span 2; }
-      .footer-top { grid-template-columns: 1fr 1fr; }
-    }
-    @media (max-width: 680px) {
-      .nav-links, .nav-insta { display: none; }
-      .hamburger { display: flex; }
-      .projects-grid { grid-template-columns: 1fr; }
-      .project-item:first-child, .project-item:nth-child(4) { grid-column: span 1; }
-      .form-row { grid-template-columns: 1fr; }
-      .footer-top { grid-template-columns: 1fr; }
-      .about-img-accent { right: 0; bottom: -1.5rem; }
-    }
 
-    /* ===== FIX ABOUT IMAGE (SHOW FULL IMAGE) ===== */
+@media (max-width: 900px) {
+  #about, #realestate, .civil-grid, .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .civil-img {
+    order: -1;
+  }
+
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .project-item:first-child,
+  .project-item:nth-child(4) {
+    grid-column: span 2;
+  }
+
+  .footer-top {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 680px) {
+  .nav-links,
+  .nav-insta {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .project-item:first-child,
+  .project-item:nth-child(4) {
+    grid-column: span 1;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-top {
+    grid-template-columns: 1fr;
+  }
+
+  .about-img-accent {
+    right: 0;
+    bottom: -1.5rem;
+  }
+}
+
+/* ===== FIX ABOUT IMAGE ===== */
 .about-img-main img {
   width: 100%;
   height: auto;
@@ -620,7 +661,7 @@
   display: block;
 }
 
-/* ===== FIX FIRMS TEXT CENTERING ===== */
+/* ===== FIX FIRMS TEXT ===== */
 .firms-header {
   text-align: center;
   max-width: 800px;
@@ -629,6 +670,29 @@
 
 .firms-header .section-desc {
   text-align: center;
+}
+
+/* ===== GRID FIX ===== */
+.firms-grid,
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  align-items: stretch;
+}
+
+.firm-card,
+.project-item {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.firm-logo {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
 }
   </style>
 </head>
