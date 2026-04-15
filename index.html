@@ -596,6 +596,8 @@
 
    /* ===== RESPONSIVE ===== */
 
+
+/* ===== TABLET ===== */
 @media (max-width: 900px) {
   #about, #realestate, .civil-grid, .contact-grid {
     grid-template-columns: 1fr;
@@ -620,6 +622,7 @@
   }
 }
 
+/* ===== MOBILE ===== */
 @media (max-width: 680px) {
   .nav-links,
   .nav-insta {
@@ -651,25 +654,21 @@
     right: 0;
     bottom: -1.5rem;
   }
+}
 
+/* ===== DESKTOP IMAGE FIX ===== */
+@media (min-width: 901px) {
   #about .about-img-main img {
-  width: 100%;
-  height: auto;
-  object-fit: contain;
-  display: block;
-
-    @media (min-width: 901px) {
-  .about-img-main {
-    width: 100%;
-    max-width: 600px;   /* adjust if needed */
-  }
-
-  .about-img-main img {
     width: 100%;
     height: auto;
     object-fit: contain;
+    display: block;
   }
-}
+
+  .about-img-main {
+    width: 100%;
+    max-width: 600px;
+  }
 }
   </style>
 </head>
