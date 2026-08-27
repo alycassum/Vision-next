@@ -749,44 +749,45 @@
       position: fixed; bottom: 96px; right: 24px; z-index: 900;
       width: 320px; max-width: calc(100vw - 32px);
       max-height: 60vh;
-      background: var(--card);
-      border: 1px solid var(--border);
+      background: #ffffff;
+      border: 1px solid #d8e2f0;
       display: none;
       flex-direction: column;
       overflow: hidden;
-      box-shadow: 0 10px 40px rgba(0,0,0,.5);
+      box-shadow: 0 10px 40px rgba(0,0,0,.25);
     }
     #chatPanel.open { display: flex; }
     .chat-header {
-      background: var(--dark);
+      background: #f2f6fc;
       padding: 1rem 1.2rem;
       display: flex; align-items: center; justify-content: space-between;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid #d8e2f0;
     }
-    .chat-header-title { font-family: var(--font-display); font-size: 1.1rem; color: var(--gold); }
-    .chat-header-sub { font-size: .7rem; color: var(--muted); margin-top: .1rem; }
-    .chat-close-btn { cursor: pointer; color: var(--muted); font-size: 1rem; background:none; border:none; }
-    .chat-close-btn:hover { color: var(--white); }
+    .chat-header-title { font-family: var(--font-display); font-size: 1.1rem; color: #1a5fd9; }
+    .chat-header-sub { font-size: .7rem; color: #5c7290; margin-top: .1rem; }
+    .chat-close-btn { cursor: pointer; color: #5c7290; font-size: 1rem; background:none; border:none; }
+    .chat-close-btn:hover { color: #1a5fd9; }
     .chat-body {
       padding: 1.1rem 1.2rem;
       overflow-y: auto;
       flex: 1;
       display: flex; flex-direction: column; gap: .9rem;
+      background: #ffffff;
     }
     .chat-msg {
-      background: rgba(201,169,110,.08);
-      border: 1px solid var(--border);
+      background: #eef4ff;
+      border: 1px solid #d8e2f0;
       padding: .7rem .9rem;
       font-size: .82rem;
-      color: var(--white);
+      color: #1a3a66;
       line-height: 1.6;
       max-width: 90%;
     }
     .chat-options { display: flex; flex-direction: column; gap: .5rem; }
     .chat-option-btn {
-      background: transparent;
-      border: 1px solid var(--gold);
-      color: var(--gold);
+      background: #ffffff;
+      border: 1px solid #1a5fd9;
+      color: #1a5fd9;
       padding: .6rem .9rem;
       font-size: .78rem;
       text-align: left;
@@ -794,7 +795,8 @@
       transition: all .2s ease;
       font-family: var(--font-body);
     }
-    .chat-option-btn:hover { background: var(--gold); color: var(--black); }
+    .chat-option-btn:hover { background: #1a5fd9; color: #ffffff; }
+
 
     
     
@@ -1656,13 +1658,40 @@
       ]
     },
     realestate: {
-      msg: "Global Space handles real estate — residential and commercial. Want to browse our services or chat directly?",
+      msg: "Global Space handles real estate — residential and commercial. Are you looking to buy, sell, or rent?",
       options: [
-        { label: "View Real Estate section", scroll: "#realestate" },
-        { label: "Chat on WhatsApp", wa: "Hi, I'm interested in buying/selling property through Global Space. Could you share more details?" },
+        { label: "Buy", next: "re_buy" },
+        { label: "Sell", next: "re_sell" },
+        { label: "Rent", next: "re_rent" },
         { label: "⬅ Back", next: "start" }
       ]
     },
+    re_buy: {
+      msg: "Great — are you looking at residential or commercial property?",
+      options: [
+        { label: "Residential", wa: "Hi, I'm looking to buy a residential property through Global Space. Could you share available options?" },
+        { label: "Commercial", wa: "Hi, I'm looking to buy a commercial property through Global Space. Could you share available options?" },
+        { label: "View Real Estate section", scroll: "#realestate" },
+        { label: "⬅ Back", next: "realestate" }
+      ]
+    },
+    re_sell: {
+      msg: "Got it — is this a residential or commercial property you'd like to sell?",
+      options: [
+        { label: "Residential", wa: "Hi, I have a residential property I'd like Global Space to help sell. Could you share more details on the process?" },
+        { label: "Commercial", wa: "Hi, I have a commercial property I'd like Global Space to help sell. Could you share more details on the process?" },
+        { label: "⬅ Back", next: "realestate" }
+      ]
+    },
+    re_rent: {
+      msg: "Understood — are you looking to rent out a property, or find one to rent?",
+      options: [
+        { label: "List my property for rent", wa: "Hi, I have a property I'd like to list for rent through Global Space. Could you share more details?" },
+        { label: "Find a property to rent", wa: "Hi, I'm looking for a property to rent through Global Space. Could you share available options?" },
+        { label: "⬅ Back", next: "realestate" }
+      ]
+    },
+
     design: {
       msg: "Vision Next's design studio creates tailored layouts and 3D mockups. Want to see our process or reach out directly?",
       options: [
