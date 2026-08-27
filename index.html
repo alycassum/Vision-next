@@ -732,6 +732,71 @@
     order: -1; /* puts image on top */
   }
 }    
+
+    /* ===== GUIDED CHAT WIDGET ===== */
+    #chatToggle {
+      position: fixed; bottom: 24px; right: 24px; z-index: 900;
+      width: 60px; height: 60px; border-radius: 50%;
+      background: var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; border: none;
+      box-shadow: 0 6px 24px rgba(0,0,0,.4);
+      transition: transform .25s ease;
+    }
+    #chatToggle:hover { transform: scale(1.06); }
+    #chatToggle svg { width: 26px; height: 26px; fill: var(--black); }
+    #chatPanel {
+      position: fixed; bottom: 96px; right: 24px; z-index: 900;
+      width: 320px; max-width: calc(100vw - 32px);
+      max-height: 60vh;
+      background: var(--card);
+      border: 1px solid var(--border);
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0,0,0,.5);
+    }
+    #chatPanel.open { display: flex; }
+    .chat-header {
+      background: var(--dark);
+      padding: 1rem 1.2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+    }
+    .chat-header-title { font-family: var(--font-display); font-size: 1.1rem; color: var(--gold); }
+    .chat-header-sub { font-size: .7rem; color: var(--muted); margin-top: .1rem; }
+    .chat-close-btn { cursor: pointer; color: var(--muted); font-size: 1rem; background:none; border:none; }
+    .chat-close-btn:hover { color: var(--white); }
+    .chat-body {
+      padding: 1.1rem 1.2rem;
+      overflow-y: auto;
+      flex: 1;
+      display: flex; flex-direction: column; gap: .9rem;
+    }
+    .chat-msg {
+      background: rgba(201,169,110,.08);
+      border: 1px solid var(--border);
+      padding: .7rem .9rem;
+      font-size: .82rem;
+      color: var(--white);
+      line-height: 1.6;
+      max-width: 90%;
+    }
+    .chat-options { display: flex; flex-direction: column; gap: .5rem; }
+    .chat-option-btn {
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      padding: .6rem .9rem;
+      font-size: .78rem;
+      text-align: left;
+      cursor: pointer;
+      transition: all .2s ease;
+      font-family: var(--font-body);
+    }
+    .chat-option-btn:hover { background: var(--gold); color: var(--black); }
+
+    
     
   </style>
 </head>
@@ -1520,6 +1585,22 @@
   </div>
 </footer>
 
+<!-- ===== GUIDED CHAT WIDGET ===== -->
+<button id="chatToggle" onclick="toggleChat()" aria-label="Chat with us">
+  <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+</button>
+<div id="chatPanel">
+  <div class="chat-header">
+    <div>
+      <div class="chat-header-title">Vision Next</div>
+      <div class="chat-header-sub">Usually replies within 24 hours</div>
+    </div>
+    <button class="chat-close-btn" onclick="toggleChat()">✕</button>
+  </div>
+  <div class="chat-body" id="chatBody"></div>
+</div>
+
+
 <script>
   // Scroll reveal
   const reveals = document.querySelectorAll('.reveal');
@@ -1561,4 +1642,89 @@
   });
 </script>
 </body>
+
+  <script>
+  // Guided chat widget
+  const chatFlow = {
+    start: {
+      msg: "Hi! What are you looking for today?",
+      options: [
+        { label: "🏠 Buy / Sell Property", next: "realestate" },
+        { label: "🎨 Design My Space", next: "design" },
+        { label: "🏗️ Construction / Renovation", next: "construction" },
+        { label: "🪑 Furniture", next: "furniture" }
+      ]
+    },
+    realestate: {
+      msg: "Global Space handles real estate — residential and commercial. Want to browse our services or chat directly?",
+      options: [
+        { label: "View Real Estate section", scroll: "#realestate" },
+        { label: "Chat on WhatsApp", wa: "Hi, I'm interested in buying/selling property through Global Space. Could you share more details?" },
+        { label: "⬅ Back", next: "start" }
+      ]
+    },
+    design: {
+      msg: "Vision Next's design studio creates tailored layouts and 3D mockups. Want to see our process or reach out directly?",
+      options: [
+        { label: "View Design section", scroll: "#about" },
+        { label: "Chat on WhatsApp", wa: "Hi, I'd like to discuss an interior design project with Vision Next. Could you share more details?" },
+        { label: "⬅ Back", next: "start" }
+      ]
+    },
+    construction: {
+      msg: "Scan Line manages civil execution end-to-end — architecture, fit-out, MEP, and QA. Want to see the details or chat directly?",
+      options: [
+        { label: "View Civil Work section", scroll: "#civilwork" },
+        { label: "Chat on WhatsApp", wa: "Hi, I have a construction/civil execution project I'd like Scan Line to look at. Could you share more details?" },
+        { label: "⬅ Back", next: "start" }
+      ]
+    },
+    furniture: {
+      msg: "Wood House makes handcrafted custom furniture for homes, offices and hotels. Want to browse pieces or order directly?",
+      options: [
+        { label: "View Furniture section", scroll: "#woodhouse" },
+        { label: "Chat on WhatsApp", wa: "Hi, I'm interested in custom furniture from Wood House. Could you share more details?" },
+        { label: "⬅ Back", next: "start" }
+      ]
+    }
+  };
+
+  function toggleChat() {
+    const panel = document.getElementById('chatPanel');
+    panel.classList.toggle('open');
+    if (panel.classList.contains('open') && document.getElementById('chatBody').children.length === 0) {
+      renderChatStep('start');
+    }
+  }
+
+  function renderChatStep(stepKey) {
+    const step = chatFlow[stepKey];
+    const body = document.getElementById('chatBody');
+    const msgDiv = document.createElement('div');
+    msgDiv.className = 'chat-msg';
+    msgDiv.textContent = step.msg;
+    const optDiv = document.createElement('div');
+    optDiv.className = 'chat-options';
+    step.options.forEach(opt => {
+      const btn = document.createElement('button');
+      btn.className = 'chat-option-btn';
+      btn.textContent = opt.label;
+      btn.onclick = () => {
+        if (opt.next) { renderChatStep(opt.next); }
+        else if (opt.scroll) {
+          document.querySelector(opt.scroll).scrollIntoView({ behavior: 'smooth' });
+          toggleChat();
+        } else if (opt.wa) {
+          window.open('https://wa.me/923360839136?text=' + encodeURIComponent(opt.wa), '_blank');
+        }
+      };
+      optDiv.appendChild(btn);
+    });
+    body.appendChild(msgDiv);
+    body.appendChild(optDiv);
+    body.scrollTop = body.scrollHeight;
+  }
+</script>
+
+  
 </html>
