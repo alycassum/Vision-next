@@ -1800,7 +1800,14 @@
     var el = f.elements;
     el.firstName.value = v[0] || ""; el.lastName.value = v[1] || ""; el.email.value = v[2] || "";
     el.phone.value = v[3] || ""; el.message.value = v[5] || "";
-    if (SERVICES.indexOf(v[4]) > -1) el.service.value = v[4];
+    var guess = ((v[4] || "") + " " + (v[5] || "")).toLowerCase(), pick = "";
+    if (SERVICES.indexOf(v[4]) > -1) pick = v[4];
+    else if (/turn.?key|everything|full/.test(guess)) pick = SERVICES[4];
+    else if (/furniture|sofa|chair|table|bed|wood|cabinet|wardrobe|dining|credenza|upholster/.test(guess)) pick = SERVICES[3];
+    else if (/construct|renovat|civil|scan ?line|build|fit.?out|contractor/.test(guess)) pick = SERVICES[2];
+    else if (/design|3d|layout|interior|elevation|architect/.test(guess)) pick = SERVICES[1];
+    else if (/real estate|property|plot|flat|apartment|house|bungalow|rent|buy|sell|global ?space/.test(guess)) pick = SERVICES[0];
+    el.service.value = pick;
     var wa = c.querySelector(".vnai-wa");
     wa.addEventListener("click", function () {
       wa.href = waLink("Hi, I'm " + el.firstName.value + " " + el.lastName.value + ". " + el.service.value + ": " + el.message.value);
