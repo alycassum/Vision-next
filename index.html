@@ -1719,7 +1719,7 @@
   .vnai-send2 { background: var(--gold); color: var(--black); }
   .vnai-wa { background: var(--whatsapp); color: #fff; }
   .vnai-hint { font-size: .7rem; color: var(--muted); }
-  @media (max-width: 520px) { #vnai-panel { left: 8px; right: 8px; width: auto; max-width: none; bottom: 88px; height: calc(100vh - 110px); } }
+  @media (max-width: 520px) { #vnai-panel { left: 8px; right: 8px; width: auto; max-width: none; bottom: 88px; height: calc(100vh - 110px); height: calc(100dvh - 110px); } #vnai-input, .vnai-card input, .vnai-card select, .vnai-card textarea { font-size: 16px; } }
 </style>
 
 <button id="vnai-toggle" aria-label="Chat with the Vision Next assistant">
@@ -1836,7 +1836,8 @@
         if (!reply) throw new Error("empty");
         history.push({ role: "assistant", content: reply });
         var m = reply.match(ENQ);
-        typing.innerHTML = fmt(reply.replace(ENQ, "").trim());
+        var shown = reply.replace(ENQ, "").trim();
+        if (shown) typing.innerHTML = fmt(shown); else typing.remove();
         if (m) showCard(m[1].split("|").map(function (x) { return x.trim(); }));
       })
       .catch(function () {
