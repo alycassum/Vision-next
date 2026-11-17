@@ -1790,9 +1790,9 @@
     var opts = SERVICES.map(function (s) { return "<option>" + s + "</option>"; }).join("");
     c.innerHTML = "<b>Please check your details</b><form class='vnai-enq'>" +
       "<div class='vnai-row'><div><label>First name</label><input name='firstName' required></div><div><label>Last name</label><input name='lastName'></div></div>" +
-      "<label>Email</label><input name='email' type='email' required>" +
-      "<div class='vnai-hint'>Please double-check your email address so we can reach you.</div>" +
-      "<label>Phone / WhatsApp</label><input name='phone' type='tel'>" +
+      "<label>WhatsApp number</label><input name='phone' type='tel' required>" +
+      "<div class='vnai-hint'>Our team will contact you on WhatsApp.</div>" +
+      "<label>Email (optional)</label><input name='email' type='email'>" +
       "<label>Service</label><select name='service'><option value=''>Select a service...</option>" + opts + "</select>" +
       "<label>Message</label><textarea name='message' required></textarea>" +
       "<div class='vnai-acts'><button type='submit' class='vnai-send2'>Send to team</button><a class='vnai-wa' target='_blank' rel='noopener'>WhatsApp instead</a></div></form>";
